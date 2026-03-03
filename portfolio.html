@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfólio — Sky Drone CPV</title>
+
+<link rel="stylesheet" href="styles.css">
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+<script src="https://cdn.babylonjs.com/babylon.js"></script>
+<script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+
+<style>
+
+/* PARTÍCULAS */
+
+#particles {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+
+/* HERO */
+
+.portfolio-hero {
+  min-height: 100vh;
+  padding: 140px 40px 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 60px;
+}
+
+.portfolio-hero-text {
+  max-width: 600px;
+}
+
+.portfolio-hero-text h1 {
+  font-size: 52px;
+  line-height: 1.1;
+}
+
+.portfolio-hero-text p {
+  margin-top: 25px;
+  color: #cbd5e1;
+  line-height: 1.8;
+}
+
+.drone-wrapper {
+  width: 500px;
+  height: 500px;
+}
+
+/* SEÇÃO VÍDEOS */
+
+.videos-section {
+  padding: 140px 40px;
+  background: linear-gradient(to bottom, #0f172a 0%, #0b1220 100%);
+}
+
+.videos-section h2 {
+  font-size: 36px;
+  margin-bottom: 100px;
+  text-align: center;
+}
+
+/* GRID PRINCIPAL */
+
+.videos-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+/* FEATURED */
+
+.video-card.featured {
+  width: 100%;
+  height: 650px;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 0 100px rgba(59,130,246,0.25);
+  transition: 0.4s;
+}
+
+.video-card.featured:hover {
+  box-shadow: 0 0 140px rgba(59,130,246,0.4);
+}
+
+/* GRID DOS MENORES */
+
+.video-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+/* MENORES */
+
+.video-card.small {
+  height: 320px;
+  border-radius: 25px;
+  overflow: hidden;
+  transition: 0.4s;
+  position: relative;
+}
+
+.video-card.small:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 0 60px rgba(59,130,246,0.5);
+}
+
+/* IFRAME */
+
+.video-card iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* REVEAL */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: 0.9s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 1024px) {
+
+  .portfolio-hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .drone-wrapper {
+    width: 100%;
+    height: 400px;
+  }
+
+  .video-card.featured {
+    height: 400px;
+  }
+
+  .video-row {
+    grid-template-columns: 1fr;
+  }
+
+  .video-card.small {
+    height: 280px;
+  }
+
+}
+
+</style>
+
+</head>
+<body>
+
+<div id="particles"></div>
+
+<header class="glass">
+  <div class="logo">Sky Drone CPV</div>
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="portfolio.html" class="active">Portfólio</a>
+    <a href="contato.html">Contato</a>
+  </nav>
+</header>
+
+<section class="portfolio-hero">
+
+  <div class="portfolio-hero-text">
+    <h1>Resultados que vendem.</h1>
+    <p>
+      Não é só voo. É estratégia visual para posicionar sua marca
+      como autoridade.
+    </p>
+  </div>
+
+  <div class="drone-wrapper">
+    <canvas id="renderCanvas"></canvas>
+  </div>
+
+</section>
+
+<section class="videos-section">
+
+  <h2>Projetos recentes</h2>
+
+  <div class="videos-grid">
+
+    <!-- PRINCIPAL -->
+    <div class="video-card featured reveal">
+      <iframe 
+        src="https://player.vimeo.com/video/1170061949?title=0&byline=0&portrait=0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- MENORES LADO A LADO -->
+    <div class="video-row">
+
+      <div class="video-card small reveal">
+        <iframe 
+          src="https://player.vimeo.com/video/1170063135?title=0&byline=0&portrait=0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <div class="video-card small reveal">
+        <iframe 
+          src="https://player.vimeo.com/video/1170062687?title=0&byline=0&portrait=0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+
+/* PARTÍCULAS */
+
+tsParticles.load("particles", {
+  background: { color: "transparent" },
+  particles: {
+    number: { value: 45 },
+    color: { value: "#3b82f6" },
+    links: {
+      enable: true,
+      color: "#3b82f6",
+      opacity: 0.2
+    },
+    move: { enable: true, speed: 1 },
+    size: { value: 2 }
+  }
+});
+
+/* SCROLL REVEAL */
+
+const reveals = document.querySelectorAll(".reveal");
+
+function revealOnScroll() {
+  reveals.forEach(el => {
+    const top = el.getBoundingClientRect().top;
+    if (top < window.innerHeight - 100) {
+      el.classList.add("active");
+    }
+  });
+}
+
+window.addEventListener("scroll", revealOnScroll);
+window.addEventListener("load", revealOnScroll);
+
+</script>
+
+<script src="main.js"></script>
+
+</body>
+</html>

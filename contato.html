@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contato — Sky Drone CPV</title>
+<link rel="stylesheet" href="styles.css">
+
+<style>
+
+/* ================= FAQ GLASS ================= */
+
+.faq-section {
+  margin-top: 70px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.faq-item {
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 22px;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.faq-item:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.faq-question {
+  width: 100%;
+  padding: 24px 30px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-question span {
+  transition: 0.3s;
+  font-size: 22px;
+}
+
+.faq-item.active .faq-question span {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 30px;
+  color: #cbd5e1;
+  line-height: 1.8;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 400px;
+  padding: 0 30px 25px;
+}
+
+</style>
+
+</head>
+<body>
+
+<div id="particles"></div>
+
+<header class="glass">
+  <div class="logo">Sky Drone CPV</div>
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="portfolio.html">Portfólio</a>
+    <a href="contato.html" class="active">Contato</a>
+  </nav>
+</header>
+
+<section class="contact">
+
+  <div class="contact-header">
+    <h1>Vamos criar algo absurdo?</h1>
+    <p>
+      Captação aérea profissional com impacto cinematográfico.
+      Se quer algo memorável, vamos conversar.
+    </p>
+  </div>
+
+  <div class="contact-boxes">
+
+    <div class="contact-card">
+      <h3>Orçamento rápido</h3>
+      <p>
+        Me chama direto no WhatsApp.
+        Respondo rápido e já alinhamos tudo.
+      </p>
+      <a class="contact-link"
+         href="https://wa.me/message/UXKXJXCJF64XI1"
+         target="_blank">
+         Falar no WhatsApp
+      </a>
+    </div>
+
+    <div class="contact-card">
+      <h3>Portfólio primeiro?</h3>
+      <p>
+        Quer validar o nível antes?
+        Veja os vídeos e depois falamos.
+      </p>
+      <a class="contact-link" href="portfolio.html">
+         Ver Portfólio
+      </a>
+    </div>
+
+  </div>
+
+  <!-- ACCORDION GLASS -->
+
+  <div class="faq-section">
+
+    <div class="faq-item">
+      <button class="faq-question">
+        O que você pode esperar?
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        ✔ Captação 4K estabilizada<br>
+        ✔ Direção de cena estratégica<br>
+        ✔ Edição dinâmica e moderna<br>
+        ✔ Entrega otimizada para redes sociais
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Tipos de projetos
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        • Eventos<br>
+        • Imobiliário<br>
+        • Empresas<br>
+        • Turismo<br>
+        • Conteúdo para redes sociais
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Perguntas frequentes
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        <strong>Entrega em quanto tempo?</strong><br>
+        Normalmente entre 3 a 7 dias.<br><br>
+
+        <strong>Atende fora da cidade?</strong><br>
+        Sim, mediante alinhamento prévio.<br><br>
+
+        <strong>Drone legalizado?</strong><br>
+        Sim, operação dentro das normas.
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<a class="floating-btn"
+   href="https://wa.me/message/UXKXJXCJF64XI1"
+   target="_blank">
+   Orçamento
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+
+<script>
+tsParticles.load("particles", {
+  background: { color: "transparent" },
+  particles: {
+    number: { value: 40 },
+    color: { value: "#3b82f6" },
+    links: {
+      enable: true,
+      color: "#3b82f6",
+      opacity: 0.2
+    },
+    move: { enable: true, speed: 1 },
+    size: { value: 2 }
+  }
+});
+
+/* Accordion logic */
+
+document.querySelectorAll(".faq-question").forEach(button => {
+  button.addEventListener("click", () => {
+    const item = button.parentElement;
+    item.classList.toggle("active");
+  });
+});
+</script>
+
+</body>
+</html>

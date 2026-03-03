@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sky Drone CPV</title>
+
+<link rel="stylesheet" href="styles.css">
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+<script src="https://cdn.babylonjs.com/babylon.js"></script>
+<script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+
+<style>
+
+/* Remove foco laranja */
+canvas {
+  outline: none;
+}
+
+/* HERO */
+
+.hero {
+  min-height: 100vh;
+  padding-top: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 52px;
+  line-height: 1.2;
+  max-width: 900px;
+}
+
+.hero p {
+  margin-top: 25px;
+  max-width: 700px;
+  color: #cbd5e1;
+  line-height: 1.8;
+}
+
+/* SEÇÃO QUALIDADE */
+
+.quality {
+  margin-top: 90px;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.quality h2 {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.quality p {
+  color: #cbd5e1;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* CONTROLE 3D */
+
+.control-wrapper {
+  margin-top: 80px;
+  width: 100%;
+  max-width: 900px;
+  height: 420px;
+}
+
+#controlCanvas {
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+/* BOTÕES */
+
+.hero-buttons {
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-primary,
+.btn-outline {
+  padding: 14px 28px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-primary {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+}
+
+.btn-outline {
+  border: 1px solid #3b82f6;
+  color: #3b82f6;
+}
+
+.btn-outline:hover {
+  background: #3b82f6;
+  color: white;
+}
+
+/* CARDS */
+
+.features {
+  margin-top: 120px;
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.feature-card {
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 22px;
+  padding: 30px;
+  max-width: 300px;
+  transition: 0.3s;
+}
+
+.feature-card:hover {
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-5px);
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 900px) {
+  .hero h1 {
+    font-size: 40px;
+  }
+
+  .control-wrapper {
+    height: 320px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="particles"></div>
+
+<header class="glass">
+  <div class="logo">Sky Drone CPV</div>
+  <nav>
+    <a href="index.html" class="active">Início</a>
+    <a href="portfolio.html">Portfólio</a>
+    <a href="contato.html">Contato</a>
+  </nav>
+</header>
+
+<section class="hero">
+
+  <h1>
+    Sua marca vista do alto.<br>
+    Do jeito que ela merece.
+  </h1>
+
+  <p>
+    Captação aérea profissional com impacto cinematográfico.
+    Transformo ângulos estratégicos em percepção de valor real.
+  </p>
+
+  <div class="hero-buttons">
+    <a href="portfolio.html" class="btn-primary">Ver trabalhos</a>
+    <a href="contato.html" class="btn-outline">Solicitar orçamento</a>
+  </div>
+
+  <!-- SEÇÃO QUALIDADE -->
+  <div class="quality">
+    <h2>Feito com qualidade</h2>
+    <p>
+      Cada projeto é planejado para entregar impacto visual e estratégia.
+      Não é só feito com drone. Mas tem resultado.
+    </p>
+  </div>
+
+  <!-- MODELO 3D -->
+  <div class="control-wrapper">
+    <canvas id="controlCanvas"></canvas>
+  </div>
+
+  <!-- CARDS -->
+  <div class="features">
+    <div class="feature-card">
+      <h3>Imagem Cinematográfica</h3>
+      <p>Movimentos suaves e composição estratégica.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Alta Definição</h3>
+      <p>Captação 4K estabilizada e pronta para redes.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Execução Profissional</h3>
+      <p>Planejamento, segurança e entrega rápida.</p>
+    </div>
+  </div>
+
+</section>
+
+<a class="floating-btn"
+   href="https://wa.me/message/UXKXJXCJF64XI1"
+   target="_blank">
+   Orçamento
+</a>
+
+<script>
+
+/* PARTICLES */
+
+tsParticles.load("particles", {
+  background: { color: "transparent" },
+  particles: {
+    number: { value: 40 },
+    color: { value: "#3b82f6" },
+    links: { enable: true, color: "#3b82f6", opacity: 0.2 },
+    move: { enable: true, speed: 1 },
+    size: { value: 2 }
+  }
+});
+
+/* BABYLON */
+
+const canvas = document.getElementById("controlCanvas");
+canvas.tabIndex = -1;
+
+const engine = new BABYLON.Engine(canvas, true);
+
+const createScene = () => {
+
+  const scene = new BABYLON.Scene(engine);
+  scene.clearColor = new BABYLON.Color4(0,0,0,0);
+
+  const camera = new BABYLON.ArcRotateCamera(
+    "camera",
+    Math.PI / 2,
+    Math.PI / 2.2,
+    3,
+    new BABYLON.Vector3(0,0,0),
+    scene
+  );
+
+  camera.attachControl(canvas, true);
+
+  /* DESATIVA ZOOM */
+  camera.lowerRadiusLimit = 3;
+  camera.upperRadiusLimit = 3;
+  camera.wheelDeltaPercentage = 0;
+  camera.pinchDeltaPercentage = 0;
+
+  /* DESATIVA PAN */
+  camera.panningSensibility = 0;
+
+  const light = new BABYLON.HemisphericLight(
+    "light",
+    new BABYLON.Vector3(1,1,0),
+    scene
+  );
+
+  BABYLON.SceneLoader.ImportMesh(
+    "",
+    "/models/",
+    "controle.glb",
+    scene,
+    function(meshes) {
+      const root = meshes[0];
+      root.scaling = new BABYLON.Vector3(1.3,1.3,1.3);
+    }
+  );
+
+  return scene;
+};
+
+const scene = createScene();
+
+engine.runRenderLoop(() => {
+  scene.render();
+});
+
+window.addEventListener("resize", () => {
+  engine.resize();
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feedback — Sky Drone CPV</title>
+<link rel="stylesheet" href="styles.css">
+
+<style>
+
+/* FEEDBACK */
+
+.feedback {
+  min-height: 100vh;
+  padding: 140px 20px;
+  text-align: center;
+}
+
+.feedback h1 {
+  font-size: 36px;
+  margin-bottom: 15px;
+}
+
+.feedback p {
+  color: #cbd5e1;
+  margin-bottom: 40px;
+}
+
+/* CARD GLASS */
+
+.feedback-card {
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 22px;
+  padding: 30px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: left;
+  transition: 0.3s;
+}
+
+.feedback-card:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+/* ESTRELAS */
+
+.stars {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.star {
+  font-size: 32px;
+  cursor: pointer;
+  color: #555;
+  transition: 0.2s;
+}
+
+.star.active {
+  color: #facc15;
+}
+
+/* FORM */
+
+textarea, input {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: white;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: #3b82f6;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: translateY(-3px);
+}
+
+/* LISTA DE FEEDBACK */
+
+.feedback-list {
+  margin-top: 60px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.feedback-item {
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: left;
+  transition: 0.3s;
+}
+
+.feedback-item:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.feedback-item h4 {
+  margin-bottom: 8px;
+}
+
+.feedback-item span {
+  color: #facc15;
+}
+
+.feedback-item small {
+  color: #cbd5e1;
+}
+
+</style>
+</head>
+<body>
+
+<header class="glass">
+  <div class="logo">Sky Drone CPV</div>
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="portfolio.html">Portfólio</a>
+    <a href="feedback.html" class="active">Feedback</a>
+  </nav>
+</header>
+
+<section class="feedback">
+
+  <h1>Sua opinião importa</h1>
+  <p>Ajude a melhorar e mostre sua experiência.</p>
+
+  <div class="feedback-card">
+
+    <div class="stars" id="stars">
+      <span class="star" data-value="1">★</span>
+      <span class="star" data-value="2">★</span>
+      <span class="star" data-value="3">★</span>
+      <span class="star" data-value="4">★</span>
+      <span class="star" data-value="5">★</span>
+    </div>
+
+    <input id="name" placeholder="Seu nome (opcional)">
+    <textarea id="comment" placeholder="Conte sua experiência..."></textarea>
+
+    <button id="sendFeedback">Enviar feedback</button>
+
+  </div>
+
+  <div class="feedback-list" id="feedbackList"></div>
+
+</section>
+
+<script>
+
+/* ESTRELAS */
+
+const stars = document.querySelectorAll(".star");
+let rating = 0;
+
+stars.forEach(star => {
+  star.addEventListener("click", () => {
+    rating = parseInt(star.dataset.value);
+
+    stars.forEach(s => {
+      s.classList.toggle("active", s.dataset.value <= rating);
+    });
+  });
+});
+
+/* SALVAR NO LOCALSTORAGE */
+
+const STORAGE_KEY = "sky_feedbacks";
+
+function loadFeedbacks() {
+  const list = document.getElementById("feedbackList");
+  list.innerHTML = "";
+
+  const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+
+  data.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "feedback-item";
+
+    div.innerHTML = `
+      <h4>${item.name} <span>${"★".repeat(item.rating)}</span></h4>
+      <p>${item.comment}</p>
+      <small>${item.date}</small>
+    `;
+
+    list.appendChild(div);
+  });
+}
+
+document.getElementById("sendFeedback").addEventListener("click", () => {
+  const name = document.getElementById("name").value || "Anônimo";
+  const comment = document.getElementById("comment").value;
+
+  if (rating === 0) {
+    alert("Selecione uma avaliação.");
+    return;
+  }
+
+  if (comment.trim() === "") {
+    alert("Escreva um comentário.");
+    return;
+  }
+
+  const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+
+  data.unshift({
+    name,
+    comment,
+    rating,
+    date: new Date().toLocaleDateString()
+  });
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+
+  alert("Obrigado! Seu feedback foi registrado.");
+
+  document.getElementById("name").value = "";
+  document.getElementById("comment").value = "";
+  stars.forEach(s => s.classList.remove("active"));
+  rating = 0;
+
+  loadFeedbacks();
+});
+
+loadFeedbacks();
+
+</script>
+
+</body>
+</html>
